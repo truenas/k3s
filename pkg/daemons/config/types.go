@@ -178,6 +178,7 @@ type Control struct {
 	KubeConfigOutput         string
 	KubeConfigMode           string
 	HelmJobImage             string
+	KubeConfigGroup          string
 	DataDir                  string
 	Datastore                endpoint.Config `json:"-"`
 	Disables                 map[string]bool

@@ -1,0 +1,33 @@
+[Unit]
+Description=Lightweight Kubernetes
+Documentation=https://k3s.io
+Wants=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=notify
+KillMode=process
+Delegate=yes
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNOFILE=1048576
+LimitNPROC=infinity
+LimitCORE=1
+EnvironmentFile=/etc/containerd.env
+TasksMax=infinity
+TimeoutStartSec=0
+Restart=always
+RestartSec=5s
+ExecStopPost=/usr/local/bin/k3s-kill.sh
+ExecStartPre=-/sbin/modprobe br_netfilter
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart=/usr/local/bin/k3s \
+    server \
+        '--flannel-backend=none' \
+        '--disable=traefik,local-storage' \
+        '--disable-kube-proxy' \
+        '--disable-network-policy' \
+        '--disable-cloud-controller' \
+        '--node-name=ix-truenas' \
