@@ -1,0 +1,30 @@
+#!/bin/bash
+set -e -x
+
+trap "pkill -9 dockerd || true" EXIT
+
+# Mounting cgroupfs
+/usr/bin/cgroupfs-mount
+
+# Starting docker daemon
+(/usr/bin/dockerd -H unix://)&
+DOCKER_PID=$!
+
+sleep 5
+
+airgap_image_file='scripts/airgap/image-list.txt'
+cat $airgap_image_file | while read image
+do
+	echo "Pulling docker image - $image"
+	docker pull $image
+done
+
+mkdir -p dist/artifacts
+
+echo "Saving tar file for $images"
+docker save $(cat "${airgap_image_file}") -o dist/artifacts/docker-images.tar
+
+echo "Removing images from docker"
+docker rmi $(docker images -q)
+
+kill -9 ${DOCKER_PID}

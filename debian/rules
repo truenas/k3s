@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+# export DH_VERBOSE = 1
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	sh -c "\
+		scripts/save_images || exit 1; \
+		scripts/download || exit 1; \
+		scripts/build || exit 1; \
+		scripts/package-cli || exit 1; \
+	"
+
+override_dh_auto_install:
+	sh -c "\
+		mkdir -p debian/k3s/usr/local/bin; \
+		cp -a dist/artifacts/k3s debian/k3s/usr/local/bin/; \
+		mkdir -p debian/k3s/usr/local/share/docker_images/; \
+		cp -a dist/artifacts/docker-images.tar debian/k3s/usr/local/share/docker_images/; \
+		cp scripts/airgap/image-list.txt debian/k3s/usr/local/share/docker_images/; \
+	"
+
+override_dh_shlibdeps:
+
+override_dh_usrlocal:
+
+override_dh_auto_clean:
+
+override_dh_auto_test:

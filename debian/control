@@ -1,0 +1,41 @@
+Source: k3s
+Section: admin
+Priority: optional
+Maintainer: Waqar Ahmed <waqar@ixsystems.com>
+Build-Depends:	gcc,
+		golang,
+		musl-dev,
+		curl,
+		cgroupfs-mount,
+		docker-ce,
+		wget,
+		ca-certificates,
+		jq,
+		tar,
+		zip,
+		squashfs-tools,
+		npm,
+		coreutils,
+		python2,
+		libffi-dev,
+		libseccomp-dev,
+		make,
+		debhelper-compat (= 12)
+Standards-Version: 4.4.0
+Homepage: http://www.truenas.com
+
+Package: k3s
+Architecture: any
+Depends:	arptables,
+		container-plugins,
+		ebtables,
+		helm,
+		ipset,
+		iptables,
+		ipvsadm,
+		kube-router,
+		multus-cni,
+		${misc:Depends},
+		${shlibs:Depends}
+Description: K3s package
+ This package is supposed to provide a debian package for k8s distribution k3s.
