@@ -25,6 +25,6 @@ ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/k3s \
     server \
         '--flannel-backend=none' \
-        '--disable=traefik,metrics-server' \
+        '--disable=traefik,metrics-server,local-storage' \
         '--docker' \
 	${K3S_EXEC_OPTIONS}
