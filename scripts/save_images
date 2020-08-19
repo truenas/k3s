@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e -x
 
+trap "pkill -9 dockerd || true" EXIT
+
 # Mounting cgroupfs
 /usr/bin/cgroupfs-mount
 
@@ -11,6 +13,7 @@ DOCKER_PID=$!
 airgap_image_file='scripts/airgap/image-list.txt'
 images=$(cat "${airgap_image_file}")
 xargs -n1 docker pull <<< "${images}"
+mkdir -p dist/artifacts
 docker save ${images} -o dist/artifacts/docker-images.tar
 
 kill -9 ${DOCKER_PID}
