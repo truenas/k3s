@@ -27,6 +27,7 @@ Homepage: http://www.truenas.com
 Package: k3s
 Architecture: any
 Depends:	container-plugins,
+		helm,
 		multus-cni,
 		${misc:Depends},
 		${shlibs:Depends}
