@@ -10,10 +10,21 @@ trap "pkill -9 dockerd || true" EXIT
 (/usr/bin/dockerd -H unix://)&
 DOCKER_PID=$!
 
+sleep 5
+
 airgap_image_file='scripts/airgap/image-list.txt'
-images=$(cat "${airgap_image_file}")
-xargs -n1 docker pull <<< "${images}"
+cat $airgap_image_file | while read image
+do
+	echo "Pulling docker image - $image"
+	docker pull $image
+done
+
 mkdir -p dist/artifacts
-docker save ${images} -o dist/artifacts/docker-images.tar
+
+echo "Saving tar file for $images"
+docker save $(cat "${airgap_image_file}") -o dist/artifacts/docker-images.tar
+
+echo "Removing images from docker"
+docker rmi $(docker images -q)
 
 kill -9 ${DOCKER_PID}
