@@ -26,6 +26,9 @@ Homepage: http://www.truenas.com
 
 Package: k3s
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends:	container-plugins,
+		multus-cni,
+		${misc:Depends},
+		${shlibs:Depends}
 Description: K3s package
  This package is supposed to provide a debian package for k8s distribution k3s.
