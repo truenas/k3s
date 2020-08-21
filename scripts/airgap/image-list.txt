@@ -7,4 +7,4 @@ quay.io/k8scsi/snapshot-controller:v2.0.1
 quay.io/k8scsi/csi-provisioner:v1.6.0
 quay.io/openebs/zfs-driver:ci
 quay.io/k8scsi/csi-node-driver-registrar:v1.2.0
-quay.io/coreos/flannel:v0.12.0-amd64
+cloudnativelabs/kube-router:latest
