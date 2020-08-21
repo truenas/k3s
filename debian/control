@@ -28,6 +28,8 @@ Package: k3s
 Architecture: any
 Depends:	container-plugins,
 		helm,
+		ipset,
+		ipvsadm,
 		multus-cni,
 		${misc:Depends},
 		${shlibs:Depends}
