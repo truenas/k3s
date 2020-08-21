@@ -26,5 +26,7 @@ ExecStart=/usr/local/bin/k3s \
     server \
         '--flannel-backend=none' \
         '--disable=traefik,metrics-server,local-storage' \
+        '--disable-kube-proxy' \
+        '--disable-network-policy' \
         '--docker' \
 	${K3S_EXEC_OPTIONS}
