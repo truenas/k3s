@@ -26,9 +26,12 @@ Homepage: http://www.truenas.com
 
 Package: k3s
 Architecture: any
-Depends:	container-plugins,
+Depends:	arptables,
+		container-plugins,
+		ebtables,
 		helm,
 		ipset,
+		iptables,
 		ipvsadm,
 		multus-cni,
 		${misc:Depends},
