@@ -15,9 +15,9 @@ COMMIT ?= $(if $(shell git status --porcelain --untracked-files=no),"$(COMMIT_NO
 VERSION := $(shell cat ./VERSION)
 
 # TODO: rm -mod=vendor once go 1.13 is unsupported
-ifneq ($(GO111MODULE),off)
-	MOD_VENDOR := "-mod=vendor"
-endif
+#ifneq ($(GO111MODULE),off)
+#	MOD_VENDOR := "-mod=vendor"
+#endif
 ifeq ($(shell $(GO) env GOOS),linux)
 	ifeq (,$(filter $(shell $(GO) env GOARCH),mips mipsle mips64 mips64le ppc64))
 		GO_BUILDMODE := "-buildmode=pie"
