@@ -40,10 +40,11 @@ fi
 VERSION_CNIPLUGINS="v0.8.6-k3s1"
 
 if [[ -n "$GIT_TAG" ]]; then
-    if [[ ! "$GIT_TAG" =~ ^"$VERSION_K8S"[+-] ]]; then
-        echo "Tagged version '$GIT_TAG' does not match expected version '$VERSION_K8S[+-]*'" >&2
-        exit 1
-    fi
+    # We comment out this check so that we are able to use TN scale versioning scheme for k3s being shipped with tn scale releases
+    # if [[ ! "$GIT_TAG" =~ ^"$VERSION_K8S"[+-] ]]; then
+    #    echo "Tagged version '$GIT_TAG' does not match expected version '$VERSION_K8S[+-]*'" >&2
+    #    exit 1
+    # fi
     VERSION=$GIT_TAG
 else
     VERSION="$VERSION_K8S+k3s-${COMMIT:0:8}$DIRTY"
