@@ -2090,7 +2090,7 @@ spec:
             - name: socket-dir
               mountPath: /var/lib/csi/sockets/pluginproxy/
         - name: openebs-zfs-plugin
-          image: openebs/zfs-driver:1.9.0
+          image: openebs/zfs-driver:1.9.3
           imagePullPolicy: IfNotPresent
           env:
             - name: OPENEBS_CONTROLLER_DRIVER
@@ -2292,7 +2292,7 @@ spec:
           securityContext:
             privileged: true
             allowPrivilegeEscalation: true
-          image: openebs/zfs-driver:1.9.0
+          image: openebs/zfs-driver:1.9.3
           imagePullPolicy: IfNotPresent
           args:
             - "--nodename=$(OPENEBS_NODE_NAME)"
