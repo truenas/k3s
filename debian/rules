@@ -9,7 +9,6 @@ override_dh_auto_build:
 		wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 || exit 1; \
 		chmod a+x /usr/local/bin/yq || exit 1; \
 		ln -s /usr/local/bin/yq /usr/bin/yq; \
-		scripts/download || exit 1; \
 		scripts/save_images || exit 1; \
 		scripts/download || exit 1; \
 		scripts/build || exit 1; \
