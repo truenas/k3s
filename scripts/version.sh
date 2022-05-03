@@ -8,9 +8,11 @@ TREE_STATE=clean
 COMMIT=$DRONE_COMMIT
 
 if [ -d .git ]; then
-    if [ -z "$GIT_TAG" ]; then
-        GIT_TAG=$(git tag -l --contains HEAD | head -n 1)
-    fi
+    # We comment out the version tag bit as our versioning scheme is not liked by containerd and it fails to start
+    # So we instead rely on the git commit hash to identify the k3s version running in the scale system
+    # if [ -z "$GIT_TAG" ]; then
+    #    GIT_TAG=$(git tag -l --contains HEAD | head -n 1)
+    # fi
     if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
         DIRTY="-dirty"
         TREE_STATE=dirty
