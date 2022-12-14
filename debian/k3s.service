@@ -29,4 +29,3 @@ ExecStart=/usr/local/bin/k3s \
         '--disable-network-policy' \
         '--disable-cloud-controller' \
         '--node-name=ix-truenas' \
-        '--docker' \
