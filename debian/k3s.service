@@ -14,7 +14,8 @@ Delegate=yes
 # in the kernel. We recommend using cgroups to do container-local accounting.
 LimitNOFILE=1048576
 LimitNPROC=infinity
-LimitCORE=infinity
+LimitCORE=1
+EnvironmentFile=/etc/containerd.env
 TasksMax=infinity
 TimeoutStartSec=0
 Restart=always
