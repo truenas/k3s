@@ -45,6 +45,7 @@ type Server struct {
 	DisableAgent             bool
 	KubeConfigOutput         string
 	KubeConfigMode           string
+	KubeConfigGroup          string
 	TLSSan                   cli.StringSlice
 	BindAddress              string
 	EnablePProf              bool
@@ -251,6 +252,12 @@ var ServerFlags = []cli.Flag{
 		Usage:       "(client) Write kubeconfig with this mode",
 		Destination: &ServerConfig.KubeConfigMode,
 		EnvVar:      version.ProgramUpper + "_KUBECONFIG_MODE",
+	},
+	&cli.StringFlag{
+		Name:        "write-kubeconfig-group",
+		Usage:       "(client) Make this group owner of kubeConfig",
+		Destination: &ServerConfig.KubeConfigGroup,
+		EnvVar:      version.ProgramUpper + "_KUBECONFIG_GROUP",
 	},
 	ServerToken,
 	&cli.StringFlag{
