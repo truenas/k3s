@@ -4,6 +4,8 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
+	"os/user"
 	"path"
 	"path/filepath"
 	"runtime/debug"
@@ -469,6 +471,12 @@ func writeKubeConfig(certs string, config *Config) error {
 		util.SetFileModeForPath(kubeConfig, os.FileMode(0600))
 	}
 
+	if config.ControlConfig.KubeConfigGroup != "" {
+		if err := chownKubeConfigGroup(kubeConfig, config.ControlConfig.KubeConfigGroup); err != nil {
+			logrus.Errorf("Failed to add and chown group: %v", err)
+		}
+	}
+
 	if kubeConfigSymlink != kubeConfig {
 		if err := writeConfigSymlink(kubeConfig, kubeConfigSymlink); err != nil {
 			logrus.Errorf("Failed to write kubeconfig symlink: %v", err)
@@ -479,6 +487,24 @@ func writeKubeConfig(certs string, config *Config) error {
 		logrus.Infof("Run: %s kubectl", filepath.Base(os.Args[0]))
 	}
 
+	return nil
+}
+
+func chownKubeConfigGroup(filePath string, groupName string) error {
+	group, err := user.LookupGroup(groupName)
+	if err != nil {
+		cmd := exec.Command("groupadd", groupName)
+		err = cmd.Run()
+		group, err = user.LookupGroup(groupName)
+		if err != nil {
+			return err
+		}
+	}
+	gid, err := strconv.Atoi(group.Gid)
+	if err != nil {
+		return err
+	}
+	os.Chown(filePath, os.Getuid(), gid)
 	return nil
 }
 
