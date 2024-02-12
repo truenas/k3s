@@ -3,7 +3,8 @@ Section: admin
 Priority: optional
 Maintainer: Waqar Ahmed <waqar@ixsystems.com>
 Build-Depends:	gcc,
-		golang,
+		wget,
+		pkg-config,
 		gawk,
 		musl-dev,
 		curl,
